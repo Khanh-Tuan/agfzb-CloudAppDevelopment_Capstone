@@ -28,7 +28,7 @@ DEBUG = True
 APPEND_SLASH = True
 
 ALLOWED_HOSTS = ["finalclass-dealerreview.mybluemix.net"]
-
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 # Application definition
 
