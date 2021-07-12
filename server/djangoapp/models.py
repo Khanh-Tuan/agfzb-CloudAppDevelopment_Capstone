@@ -41,24 +41,31 @@ class CarModel(models.Model):
         return "Name: " + self.name + ", " + "Type: " + self.car_type + ', ' + 'Year: ' + self.year
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
-class CarDealer(models.Model):    
-    city = models.CharField(max_length=1000)
-    state = models.CharField(max_length=1000)
-    st = models.CharField(max_length=1000)
-    address = models.CharField(max_length=1000)
-    zipcode = models.IntegerField()
-    lat = models.FloatField()
-    lon = models.FloatField()
-    short_name = models.CharField(max_length=1000)
-    full_name = models.CharField(max_length=1000)
+class CarDealer:
+    def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip):
+        self.address = address
+        self.city = city
+        self.full_name = full_name
+        self.id = id
+        self.lat = lat
+        self.long = long
+        self.short_name = short_name
+        self.st = st
+        self.zip = zip
+    def __str__(self):
+        return "Dealer name: " + self.full_name
 
 # <HINT> Create a plain Python class `DealerReview` to hold review data
-class DealerReview(models.Model):
-    name = models.CharField(max_length=1000)
-    dealer_id = models.IntegerField()
-    review = models.CharField(max_length=3000)
-    purchase = models.BooleanField()
-    purchase_date = models.DateField()
-    carmake = models.CharField(max_length=1000)
-    carmodel = models.CharField(max_length=1000)
-    car_year = models.DateField()
+class DealerReview:
+    def __init__(self, car_make, car_model, car_year, dealership, id, name, purchase, purchase_date, review):
+        self.car_make = car_make
+        self.car_model = car_model
+        self.car_year = car_year
+        self.dealership = dealership
+        self.id = id
+        self.name = name
+        self.purchase = purchase
+        self.purchase_date = purchase_date
+        self.review = review
+    def __str__(self):
+        return "Name: " + self.name
