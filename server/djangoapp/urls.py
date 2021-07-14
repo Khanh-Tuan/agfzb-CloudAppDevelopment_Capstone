@@ -26,8 +26,10 @@ urlpatterns = [
     path('logout/', views.logout_request, name='logout'),
 
     path(route='', view=views.get_dealerships, name='index'),
+    '''
     path('<int:dealer_id>/', view=views.get_dealerships_by_id, name='index'),
     path('<str:state>/', view=views.get_dealerships_by_state, name='index'),
+    '''
     path('admin/', admin.site.urls),
 
 
