@@ -91,7 +91,7 @@ def get_dealerships(request):
         # Return a list of dealer short name
         return render(request, 'djangoapp/index.html', context)
 
-def get_dealerships_by_id(request, dealer_id):
+'''def get_dealerships_by_id(request, dealer_id):
     context = {}
     if request.method == "GET":
         url = "https://67a392c1.us-south.apigw.appdomain.cloud/api/dealerships/dealer-get"
@@ -112,6 +112,7 @@ def get_dealerships_by_state(request, state):
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
         return HttpResponse(dealer_names)
+'''
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
