@@ -12,9 +12,9 @@ def get_request(url, **kwargs):
     print(kwargs)
     print("GET from {} ".format(url))
     try:
-        # Call get method of requests library with URL and parameters
-        api_key = kwargs['api_key']
-        if api_key:
+        # Call get method of requests library with URL and parameters        
+        if kwargs['api_key']:
+            api_key = kwargs['api_key']
             params = dict()
             params["text"] = kwargs["text"]
             params["version"] = kwargs["version"]
