@@ -26,16 +26,13 @@ urlpatterns = [
     path('logout/', views.logout_request, name='logout'),
 
     path(route='', view=views.get_dealerships, name='index'),
-    '''
-    path('<int:dealer_id>/', view=views.get_dealerships_by_id, name='index'),
-    path('<str:state>/', view=views.get_dealerships_by_state, name='index'),
-    '''
+    
 
 
     # path for dealer reviews view
-    path('dealer/', view=views.get_dealer_details, name='dealer_details'),
+    path('dealer/<int:dealer_id>/', views.get_dealer_details, name='dealer_details'),
 
     # path for add a review view
-    path('review/', view=views.add_review, name='add_review'),
+    path('review/<int:dealer_id>/', views.add_review, name='add_review'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
-from .models import CarMake
+from .models import CarMake, CarModel
 # from .restapis import related methods
 from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf, post_request
 from django.contrib.auth import login, logout, authenticate
@@ -83,44 +83,21 @@ def registration_request(request):
 def get_dealerships(request):
     context = {}
     if request.method == "GET":
-        url = "https://67a392c1.us-south.apigw.appdomain.cloud/api/dealerships/dealer-get"
+        url = "https://67a392c1.us-south.apigw.appdomain.cloud/api/dealerships"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         context = {}
         context['dealerships'] = dealerships
         # Return a list of dealer short name
         return render(request, 'djangoapp/index.html', context)
-
-'''def get_dealerships_by_id(request, dealer_id):
-    context = {}
-    if request.method == "GET":
-        url = "https://67a392c1.us-south.apigw.appdomain.cloud/api/dealerships/dealer-get"
-        # Get dealers from the URL
-        dealerships = get_dealers_from_cf(url, dealer_id)
-        # Concat all dealer's short name
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
-        # Return a list of dealer short name
-        return HttpResponse(dealer_names)
-
-def get_dealerships_by_state(request, state):
-    context = {}
-    if request.method == "GET":
-        url = "https://67a392c1.us-south.apigw.appdomain.cloud/api/dealerships/dealer-get"
-        # Get dealers from the URL
-        dealerships = get_dealers_from_cf(url, state)
-        # Concat all dealer's short name
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
-        # Return a list of dealer short name
-        return HttpResponse(dealer_names)
-'''
-
+        
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
     context = {}
     if request.method == "GET":
-        url = "https://67a392c1.us-south.apigw.appdomain.cloud/api/reviews/review-get"
+        url = "https://67a392c1.us-south.apigw.appdomain.cloud/api/reviews"
         # Get dealers from the URL
-        reviews = get_dealer_reviews_from_cf(url)
+        reviews = get_dealer_reviews_from_cf(url, dealer_id)
         # Append to context
         context['reviews'] = reviews
         # Return a list of dealer short name
@@ -131,21 +108,22 @@ def add_review(request, dealer_id):
     user = request.user
     if request.method == "GET":
         context = {}
-        cars = CarMake.CarModel_set.get()
+        cars = CarModel.objects.filter(dealer_id=dealer_id).get()
         context['cars'] = cars
+        context['dealer_id'] = dealer_id
         return render(request, 'djangoap/add_review.html', context)
     elif request.method == "POST":
         if user.is_authenticated:
-            url = 'https://67a392c1.us-south.apigw.appdomain.cloud/api/reviews/review-post'
+            url = 'https://67a392c1.us-south.apigw.appdomain.cloud/api/reviews'
             review = {}
-            review['name'] = request.name
-            review['dealership'] = request.dealership
-            review['review'] = request.review
-            review['purchase'] = request.purchase
-            review['purchase_date'] = request.purchase_date
-            review['car_make'] = request.car_make
-            review['car_model'] = request.car_model
-            review['car_year'] = request.car_year
+            review['name'] = user.first_name + ' ' + user.last_name
+            review['dealership'] = dealer_id
+            review['review'] = request.POST.get('content')
+            review['purchase'] = request.POST.get('purchasecheck')
+            review['purchase_date'] = request.POST.get("purchasedate")
+            review['car_make'] = request.POST.get('car.make.name')
+            review['car_model'] = request.POST.get('car.name')
+            review['car_year'] = request.POST.get('car.year')
             json_payload = {}
             json_payload['review'] = review
             post_request(url, json_payload, dealerId=dealer_id)
