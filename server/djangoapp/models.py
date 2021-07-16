@@ -36,7 +36,7 @@ class CarModel(models.Model):
     HATCHBACK = 'hatchback'
     type_choices = [(SEDAN, 'Sedan'),(SUV, 'SUV'),(WAGON, 'Wagon'),(HATCHBACK, 'Hatchback')]
     car_type = models.CharField(null=False,choices=type_choices,max_length=1000)
-    year = models.IntegerField()
+    year = models.DateField()
     def __str__(self):
         return "Name: " + self.name + ", " + "Type: " + self.car_type + ', ' + 'Year: ' + str(self.year)
 
