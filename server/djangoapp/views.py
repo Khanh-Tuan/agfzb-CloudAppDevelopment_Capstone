@@ -112,7 +112,7 @@ def add_review(request, dealer_id):
         cars = CarModel.objects.filter(dealer_id=dealer_id)
         context['cars'] = cars
         context['dealer_id'] = dealer_id
-        return render(request, 'djangoap/add_review.html', context)
+        return render(request, 'djangoapp/add_review.html', context)
     elif request.method == "POST":
         if user.is_authenticated:
             url = 'https://67a392c1.us-south.apigw.appdomain.cloud/api/reviews'
