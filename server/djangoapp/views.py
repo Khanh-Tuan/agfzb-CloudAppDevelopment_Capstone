@@ -107,8 +107,8 @@ def get_dealer_details(request, dealer_id):
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
     user = request.user
+    context = {}
     if request.method == "GET":
-        context = {}
         cars = CarModel.objects.filter(dealer_id=dealer_id)
         context['cars'] = cars
         context['dealer_id'] = dealer_id
@@ -119,13 +119,16 @@ def add_review(request, dealer_id):
             review = {}
             review['name'] = user.first_name + ' ' + user.last_name
             review['dealership'] = dealer_id
-            review['review'] = request.POST.get('content')
-            review['purchase'] = request.POST.get('purchasecheck')
-            review['purchase_date'] = request.POST.get("purchasedate")
-            review['car_make'] = request.POST.get('car.make.name')
-            review['car_model'] = request.POST.get('car.name')
-            review['car_year'] = request.POST.get('car.year')
+            review['review'] = request.POST['content']
+            review['purchase'] = request.POST.get("purchasecheck") == 'on'
+            if review['purchase'] == True:
+                review['purchase_date'] = request.POST["purchasedate"]
+                car = CarModel.objects.get(pk=request.POST["car"])
+                review['car_make'] = car.make.name
+                review['car_model'] = car.name
+                review['car_year'] = car.year.strftime("%Y")
             json_payload = {}
             json_payload['review'] = review
             post_request(url, json_payload, dealerId=dealer_id)
-            return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
+            context["dealer_id"] = dealer_id
+            rreturn redirect("/djangoapp/dealer/" + str(dealer_id), context)
