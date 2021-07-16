@@ -109,7 +109,7 @@ def add_review(request, dealer_id):
     user = request.user
     if request.method == "GET":
         context = {}
-        cars = CarModel.objects.filter(dealer_id=dealer_id).get()
+        cars = CarModel.objects.filter(dealer_id=dealer_id)
         context['cars'] = cars
         context['dealer_id'] = dealer_id
         return render(request, 'djangoap/add_review.html', context)
