@@ -14,13 +14,13 @@ def get_request(url, **kwargs):
     try:
         # Call get method of requests library with URL and parameters
         
-        if 'api_key' in kwargs['params']:
-            api_key = kwargs['params']['api_key']
+        if 'api_key' in kwargs:
+            api_key = kwargs['api_key']
             params = dict()
-            params["text"] = kwargs['params']["text"]
-            params["version"] = kwargs['params']["version"]
-            params["features"] = kwargs['params']["features"]
-            params["return_analyzed_text"] = kwargs['params']["return_analyzed_text"]
+            params["text"] = kwargs["text"]
+            params["version"] = kwargs["version"]
+            params["features"] = kwargs["features"]
+            params["return_analyzed_text"] = kwargs["return_analyzed_text"]
             response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
                                     auth=HTTPBasicAuth('apikey', api_key))
         else:
