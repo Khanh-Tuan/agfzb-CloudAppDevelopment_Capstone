@@ -91,9 +91,11 @@ def get_dealer_reviews_from_cf(url, **kwargs):
                                     sentiment = analyze_review_sentiments(review["review"]))
                 results.append(review_obj)
             else:
-                review_obj = DealerReview(dealership=review["dealership"],
+                review_obj = DealerReview(car_make='', car_model='',
+                                    car_year='', dealership=review["dealership"],
                                     id=review["id"], name=review["name"], purchase=review["purchase"],
-                                    review=review["review"], sentiment = analyze_review_sentiments(review["review"]))
+                                    purchase_date='', review=review["review"],
+                                    sentiment = analyze_review_sentiments(review["review"]))
                 results.append(review_obj)
     return results
 
