@@ -100,6 +100,7 @@ def get_dealer_details(request, dealer_id):
         reviews = get_dealer_reviews_from_cf(url, dealer_id = dealer_id)
         # Append to context
         context['reviews'] = reviews
+        context['dealer_id'] = dealer_id
         # Return a list of dealer short name
         return render(request, 'djangoapp/dealer_details.html', context)
 
