@@ -13,8 +13,8 @@ def get_request(url, **kwargs):
     print("GET from {} ".format(url))
     try:
         # Call get method of requests library with URL and parameters
-        '''
-        if kwargs['api_key']:
+        
+        if 'api_key' in kwargs:
             api_key = kwargs['api_key']
             params = dict()
             params["text"] = kwargs["text"]
@@ -23,8 +23,8 @@ def get_request(url, **kwargs):
             params["return_analyzed_text"] = kwargs["return_analyzed_text"]
             response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
                                     auth=HTTPBasicAuth('apikey', api_key))
-        else:'''
-        response = requests.get(url, headers={'Content-Type': 'application/json'},
+        else:
+            response = requests.get(url, headers={'Content-Type': 'application/json'},
                                     params=kwargs)
     except:
         # If any error occurs
