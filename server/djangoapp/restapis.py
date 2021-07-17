@@ -78,14 +78,14 @@ def get_dealer_reviews_from_cf(url, **kwargs):
             if review['purchase'] == True:
                 review_obj = DealerReview(car_make=review["car_make"], car_model=review["car_model"],
                                     car_year=review["car_year"], dealership=review["dealership"],
-                                    id=review["id"], name=review["name"], purchase=review["purchase"],
+                                    name=review["name"], purchase=review["purchase"],
                                     purchase_date=review["purchase_date"], review=review["review"],
                                     sentiment = analyze_review_sentiments(review["review"]))
                 results.append(review_obj)
             else:
                 review_obj = DealerReview(car_make='None', car_model='No car',
                                     car_year=0, dealership=review["dealership"],
-                                    id=review["id"], name=review["name"], purchase=review["purchase"],
+                                    name=review["name"], purchase=review["purchase"],
                                     purchase_date='', review=review["review"],
                                     sentiment = analyze_review_sentiments(review["review"]))
                 results.append(review_obj)
