@@ -130,6 +130,7 @@ def add_review(request, dealer_id):
             json_payload = {}
             json_payload['review'] = review
             print (json_payload)
-            post_request(url, json_payload, dealerId=dealer_id)
+            result = post_request(url, json_payload, dealerId=dealer_id)
+            print ('POST result: ' + result)
             context["dealer_id"] = dealer_id
             return redirect("/djangoapp/dealer/" + str(dealer_id), context)
