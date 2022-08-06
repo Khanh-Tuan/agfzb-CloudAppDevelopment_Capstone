@@ -7,9 +7,9 @@ env:
   IBM_CLOUD_REGION: au-syd
   IBM_CLOUD_GROUP: TuanTest
   IBM_CLOUD_SPACE: djangoserver-space
-  IBM_CLOUD_ORG:
+  IBM_CLOUD_ORG: default
   MANIFEST_NAME: manifest.yml
-  IBM_CLOUD_API: ApiKey-1e7f6e0f-48d9-4634-b01e-f696160d7708
+  IBM_CLOUD_API: ${{secrets.IBM_CLOUD_API_KEY}}
 
 defaults:
   run:
