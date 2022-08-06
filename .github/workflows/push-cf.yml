@@ -5,11 +5,11 @@ on: workflow_dispatch
 # Environment variables available to all jobs and steps in this workflow
 env:
   IBM_CLOUD_REGION: au-syd
-  IBM_CLOUD_GROUP: Default
+  IBM_CLOUD_GROUP: TuanTest
   IBM_CLOUD_SPACE: djangoserver-space
   IBM_CLOUD_ORG: khanh.damtuan@icloud.com
   MANIFEST_NAME: manifest.yml
-  IBM_CLOUD_API: ${{secrets.IBM_CLOUD_API_KEY}}
+  IBM_CLOUD_API: ${{secrets.CAPSTONE}}
 
 defaults:
   run:
