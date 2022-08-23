@@ -27,7 +27,7 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ["dealer.au-syd.mybluemix.net"]
+ALLOWED_HOSTS = ["dealer.au-syd.mybluemix.net",'Localhost']
 
 
 # Application definition
