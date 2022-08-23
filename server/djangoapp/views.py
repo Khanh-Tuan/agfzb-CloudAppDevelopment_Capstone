@@ -80,7 +80,7 @@ def registration_request(request):
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://4695b995-5eb0-4c4f-abeb-1c5a3d07ac9f-bluemix.cloudant.com/api/dealerships"
+        url = "https://fc49f1a3.au-syd.apigw.appdomain.cloud/api/dealerships"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
@@ -94,7 +94,7 @@ def get_dealerships(request):
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
     if request.method == "GET":
-        url = "https://4695b995-5eb0-4c4f-abeb-1c5a3d07ac9f-bluemix.cloudant.com/api/reviews"
+        url = "https://fc49f1a3.au-syd.apigw.appdomain.cloud/api/review"
         reviews = get_dealer_reviews_from_cf(url, dealer_id=dealer_id)
         context['reviews'] = reviews
         context['dealer_id'] = dealer_id
@@ -112,7 +112,7 @@ def add_review(request, dealer_id):
         return render(request, 'djangoapp/add_review.html', context)
     elif request.method == "POST":
         if user.is_authenticated:
-            url = 'https://4695b995-5eb0-4c4f-abeb-1c5a3d07ac9f-bluemix.cloudant.com/api/reviews'
+            url = 'https://fc49f1a3.au-syd.apigw.appdomain.cloud/api/review'
             review = {}
             review['name'] = user.first_name + ' ' + user.last_name
             review['dealership'] = dealer_id
