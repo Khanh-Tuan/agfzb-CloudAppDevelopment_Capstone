@@ -1,11 +1,11 @@
   applications:
   - name: dealership
     routes:
-      - route: dealer.au-syd.mybluemix.net 
+      - route: dealership.apic.au-syd.mybluemix.net/ 
     memory: 128M
-    buildpack: python_buildpack
+    buildpack: python_buildpacks
   - name: dealership-nginx
     routes:
-      - route: dealer.au-syd.mybluemix.net/static
+      - route: dealership.apic.au-syd.mybluemix.net//static
     memory: 128M
     buildpack: staticfile_buildpack
