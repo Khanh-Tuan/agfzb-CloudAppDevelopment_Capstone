@@ -6,6 +6,6 @@
     buildpack: python_buildpack
   - name: dealer-nginx
     routes:
-      - route: dealership.apic.au-syd.mybluemix.net 
+      - route: dealership.apic.au-syd.mybluemix.net/static
     memory: 128M
     buildpack: staticfile_buildpack
