@@ -4,7 +4,7 @@
       - route: dealership.apic.au-syd.mybluemix.net 
     memory: 128M
     buildpack: python_buildpack
-  - name: dealership-nginx
+  - name: dealer-nginx
     routes:
       - route: dealership.apic.au-syd.mybluemix.net 
     memory: 128M
