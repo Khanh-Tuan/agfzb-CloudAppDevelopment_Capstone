@@ -1,61 +1,45 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
-# from .models import related models
-# from .restapis import related methods
-from django.contrib.auth import login, logout, authenticate
-from django.contrib import messages
-from datetime import datetime
-import logging
-import json
-
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
-
-
-# Create your views here.
-def about(request):
-    context = {}
-    if request.method == "GET":
-        return render(request, 'djangoapp/about.html', context)
-
-# Create an `about` view to render a static about page
-# def about(request):
-# ...
-
-
-# Create a `contact` view to return a static contact page
-def contact(request):
-    context = {}
-    if request.method =="GET":
-        return render(request, 'djangoapp/contact.html', context)
-
-# Create a `login_request` view to handle sign in request
-# def login_request(request):
-# ...
-
-# Create a `logout_request` view to handle sign out request
-# def logout_request(request):
-# ...
-
-# Create a `registration_request` view to handle sign up request
-def registration_request(request):
-    context= {}
-    if request.method == 'GET':
-        return render(request, 'djangoapp/registration.html', context)
-# Update the `get_dealerships` view to render the index page with a list of dealerships
-def get_dealerships(request):
-    context = {}
-    if request.method == "GET":
-        return render(request, 'djangoapp/index.html', context)
-
-
-# Create a `get_dealer_details` view to render the reviews of a dealer
-# def get_dealer_details(request, dealer_id):
-# ...
-
-# Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
-# ...
-
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Contact Us</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <!--Add a nav bar here -->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Username" name="username" >
+                                <input type="password" class="form-control" placeholder="Password" name="psw" >
+                                <button class="btn btn-primary" type="submit">Login</button>
+                                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                            </div>
+                        </form>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        
+        <br>
+            <h3> Address 5, 08888, Somewhere. </h3>
+            <h3> 01234566 </h3>
+        <br>
+    </body>
