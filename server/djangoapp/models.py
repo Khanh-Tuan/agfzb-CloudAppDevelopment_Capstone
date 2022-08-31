@@ -27,32 +27,18 @@ class CarMake(models.Model):
 # - Any other fields you would like to include in car model
 # - __str__ method to print a car make object
 class CarModel(models.Model):
-
-    Sedan = 'Sedan'
+    carmake = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    name = models.CharField(null=False,max_length=1000)
+    dealer_id = models.IntegerField()
+    SEDAN = 'sedan'
     SUV = 'SUV'
-    WAGON = 'WAGON'
-
-    CAR_CHOICES = [
-        (Sedan, 'Sedan'),
-        (SUV, 'SUV'),
-        (WAGON, 'WAGON'),
-    ]
-
-    # - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
-    carMake = models.ForeignKey(CarMake, on_delete=models.CASCADE)
-    # - Name
-    Name = models.CharField(max_length=20)
-    # - Dealer id, used to refer a dealer created in cloudant database
-    DearlerId = models.IntegerField()
-    # - Type (CharField with a choices argument to provide limited choices such as Sedan, SUV, WAGON, etc.)
-    Type = models.CharField(max_length=10, choices=CAR_CHOICES)
-    # - Year (DateField)
-    Year = models.DateField()
-    # - Any other fields you would like to include in car model
-    # - __str__ method to print a car make object
-
+    WAGON = 'wagon'
+    HATCHBACK = 'hatchback'
+    type_choices = [(SEDAN, 'Sedan'),(SUV, 'SUV'),(WAGON, 'Wagon'),(HATCHBACK, 'Hatchback')]
+    car_type = models.CharField(null=False,choices=type_choices,max_length=1000)
+    year = models.DateField()
     def __str__(self):
-        return self.Name + " " + self.DearlerId + " " + self.Type + " " + self.Year
+        return "Name: " + self.name + ", " + "Type: " + self.car_type + ', ' + 'Year: ' + str(self.year)
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer:
